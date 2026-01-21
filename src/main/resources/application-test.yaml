@@ -1,6 +1,6 @@
 spring:
   application:
-    name: e-commerce
+    name: e-commerce-test
 
   datasource:
     url: jdbc:postgresql://localhost:5432/e_commerce
@@ -12,7 +12,3 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-#  profiles:
-#    active: test
-

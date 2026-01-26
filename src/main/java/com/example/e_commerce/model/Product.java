@@ -12,8 +12,8 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Product {
 
-    private Long product_id;
-    private Long category_id;
+    private int product_id;
+    private int category_id;
     private String name;
     private String description;
     private BigDecimal price;

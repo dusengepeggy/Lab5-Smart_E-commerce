@@ -3,12 +3,11 @@ spring:
     name: e-commerce-dev
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/e_commerce
-    username: postgres
-    password: Peggy@123
+    url: ${DB_URL_DEV}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  jdbc:
+    template:
+      fetch-size: 200

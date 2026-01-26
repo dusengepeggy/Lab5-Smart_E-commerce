@@ -1,18 +1,13 @@
 spring:
   application:
-    name: e-commerce
-  config:
-    import: optional:file:.env
+    name: e-commerce-test
+
   datasource:
     url: ${DB_URL}
-    username: ${DB_USER}
+    username: ${DB_USER_TEST}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jdbc:
     template:
       fetch-size: 200
-
-#  profiles:
-#    active: dev
-

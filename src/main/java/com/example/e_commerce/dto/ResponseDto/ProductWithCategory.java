@@ -1,4 +1,4 @@
-package com.example.e_commerce.model;
+package com.example.e_commerce.dto.ResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +10,12 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-
+public class ProductWithCategory {
     private int product_id;
     private int category_id;
+    private String category_name;
     private String name;
     private String description;
     private BigDecimal price;
     private LocalDateTime created_at;
-
 }

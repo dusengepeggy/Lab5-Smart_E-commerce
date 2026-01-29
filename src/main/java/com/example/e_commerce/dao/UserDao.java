@@ -1,20 +1,31 @@
 package com.example.e_commerce.dao;
 
-import com.example.e_commerce.dto.RegisterRequest;
-import com.example.e_commerce.dto.UpdateUserRequest;
+import com.example.e_commerce.dto.RequestDto.RegisterRequest;
+import com.example.e_commerce.dto.RequestDto.UpdateUserRequest;
 import com.example.e_commerce.model.User;
-import com.example.e_commerce.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
 public class UserDao {
      private final JdbcTemplate jdbcTemplate;
+     private static final RowMapper<User> USER_ROW_MAPPER = (rs, rowNum) ->
+            new User(
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("role")
+            );
+
      public void registerUser (RegisterRequest user) {
              jdbcTemplate.update("INSERT INTO \"User\" (username,email,password,role) VALUES (?,?,?, CAST (? AS user_role))",
                      user.getUsername(),
@@ -26,31 +37,22 @@ public class UserDao {
      }
 
      public List<User> getAllUsers () {
-        return jdbcTemplate.query("SELECT * FROM \"User\" ORDER BY username",(rs,rowNum)->
-                new User(
-                        rs.getInt("user_id"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("role")
-                ));
+        return jdbcTemplate.query("SELECT * FROM \"User\" ORDER BY username", USER_ROW_MAPPER);
      }
 
-     public User getUserById (int userId) {
-         return jdbcTemplate.queryForObject("SELECT * FROM \"User\" WHERE user_id = ?",(rs,rowNum)->
-                 new User(
-                         rs.getInt("user_id"),
-                         rs.getString("username"),
-                         rs.getString("email"),
-                         rs.getString("password"),
-                         rs.getString("role")
-                 ),userId );
+     public Optional<User> getUserById (int userId) {
+         try {
+             User user = jdbcTemplate.queryForObject("SELECT * FROM \"User\" WHERE user_id = ?",USER_ROW_MAPPER,userId );
+             return Optional.ofNullable(user);
+         } catch (EmptyResultDataAccessException e) {
+             return Optional.empty();
+         }
+
      }
 
 
      public int deleteUser (int userId){
-         int rows = jdbcTemplate.update("DELETE FROM \"User\" WHERE user_id = ?",userId);
-         return  rows;
+         return  jdbcTemplate.update("DELETE FROM \"User\" WHERE user_id = ?",userId);
 
      }
 
@@ -75,10 +77,6 @@ public class UserDao {
         return  jdbcTemplate.update(sql.toString(), params.toArray());
 
     }
-
-
-
-
 
 
 }

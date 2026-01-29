@@ -1,5 +1,6 @@
-package com.example.e_commerce.dto;
+package com.example.e_commerce.dto.ResponseDto;
 
+import com.example.e_commerce.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.e_commerce.utils;
 
-import com.example.e_commerce.dto.ErrorResponse;
+import com.example.e_commerce.dto.JsonResponseDto.ErrorResponse;
 import com.example.e_commerce.utils.exceptions.NotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;

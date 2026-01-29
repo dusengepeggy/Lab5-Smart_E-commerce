@@ -1,4 +1,4 @@
-package com.example.e_commerce.dto;
+package com.example.e_commerce.enums;
 
 public enum UserRole {
     Customer, Admin

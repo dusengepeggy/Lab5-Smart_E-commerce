@@ -1,9 +1,9 @@
 package com.example.e_commerce.controller;
 
-import com.example.e_commerce.dto.RegisterRequest;
-import com.example.e_commerce.dto.SuccessResponse;
-import com.example.e_commerce.dto.UpdateUserRequest;
-import com.example.e_commerce.dto.UserDTO;
+import com.example.e_commerce.dto.RequestDto.RegisterRequest;
+import com.example.e_commerce.dto.JsonResponseDto.SuccessResponse;
+import com.example.e_commerce.dto.RequestDto.UpdateUserRequest;
+import com.example.e_commerce.dto.ResponseDto.UserDTO;
 import com.example.e_commerce.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")

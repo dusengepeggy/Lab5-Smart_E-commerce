@@ -1,10 +1,10 @@
 package com.example.e_commerce.service;
 
 import com.example.e_commerce.dao.UserDao;
-import com.example.e_commerce.dto.RegisterRequest;
-import com.example.e_commerce.dto.UpdateUserRequest;
-import com.example.e_commerce.dto.UserDTO;
-import com.example.e_commerce.dto.UserRole;
+import com.example.e_commerce.dto.RequestDto.RegisterRequest;
+import com.example.e_commerce.dto.RequestDto.UpdateUserRequest;
+import com.example.e_commerce.dto.ResponseDto.UserDTO;
+import com.example.e_commerce.enums.UserRole;
 import com.example.e_commerce.model.User;
 import com.example.e_commerce.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService {
     private final UserDao userDao;
+
+    public void deleteUser(int id){
+        int rows = userDao.deleteUser(id);
+        if (rows == 0) {
+            throw new NotFoundException("User not found");
+        }
+    }
 
     public void register (RegisterRequest user) {
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
@@ -37,15 +44,9 @@ public class UserService {
     }
 
     public UserDTO getUserById (int user_id) {
-        User user = userDao.getUserById(user_id);
+        User user = userDao.getUserById(user_id)
+                .orElseThrow(() -> new NotFoundException("User with ID " + user_id + " not found"));;
         return  convertToDto(user);
-    }
-
-    public void deleteUser(int id){
-        int rows = userDao.deleteUser(id);
-        if (rows == 0) {
-            throw new NotFoundException("User not found");
-        }
     }
 
     public UserDTO updateUser (int id,UpdateUserRequest user){

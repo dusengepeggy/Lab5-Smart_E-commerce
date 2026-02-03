@@ -1,5 +1,6 @@
-package com.example.e_commerce.dto;
+package com.example.e_commerce.dto.RequestDto;
 
+import com.example.e_commerce.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

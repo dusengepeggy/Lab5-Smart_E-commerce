@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +17,6 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private Date created_at;
+    private LocalDateTime created_at;
 
 }

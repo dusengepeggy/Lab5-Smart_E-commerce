@@ -1,0 +1,71 @@
+type ProductWithCategory {
+  product_id: Int!
+  category_id: Int!
+  category_name: String!
+  name: String!
+  description: String
+  price: Float!
+  created_at: String
+}
+
+type ProductWithCategoryAndStock {
+  productId: Int!
+  categoryId: Int!
+  categoryName: String!
+  name: String!
+  description: String
+  price: Float!
+  createdAt: String
+  stockQuantity: Int!
+}
+
+type PagedResponse {
+  items: [ProductWithCategory!]!
+  page: Int!
+  size: Int!
+  totalElements: Int!
+  totalPages: Int!
+}
+
+type OrderItem {
+  order_item_id: Int!
+  order_id: Int!
+  product_id: Int!
+  quantity: Int!
+  unit_price: Float
+}
+
+type Order {
+  order_id: Int!
+  user_id: Int!
+  order_date: String
+  total_amount: Float
+  status: String
+  items: [OrderItem!]!
+}
+
+type Review {
+  review_id: Int!
+  user_id: Int!
+  product_id: Int!
+  rating: Int!
+  comment: String
+  review_date: String
+}
+
+type Query {
+  products(page: Int, size: Int, categoryId: Int, q: String, minPrice: Float, maxPrice: Float, sortBy: String, sortDir: String): PagedResponse!
+  product(id: Int!): ProductWithCategoryAndStock
+  order(id: Int!): Order
+  ordersByUser(userId: Int!): [Order!]!
+  review(id: Int!): Review
+  reviewsByProduct(productId: Int!): [Review!]!
+  reviewsByUser(userId: Int!): [Review!]!
+  reviews: [Review!]!
+}
+
+type Mutation {
+  createReview(userId: Int!, productId: Int!, rating: Int!, comment: String): Boolean
+  updateReview(id: Int!, rating: Int, comment: String): Review!
+  deleteReview(id: Int!): Boolean!
+}

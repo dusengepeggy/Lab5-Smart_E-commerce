@@ -12,7 +12,14 @@ spring:
   jdbc:
     template:
       fetch-size: 200
+  graphql:
+    graphiql:
+      enabled: true
+    schema:
+      locations: classpath:graphql/
+      file-extensions: .graphqls
 
-#  profiles:
-#    active: dev
 
+  logging:
+    level:
+      com.example.e_commerce: DEBUG

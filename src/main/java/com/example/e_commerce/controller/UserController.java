@@ -10,11 +10,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
+@Tag(name = "Users", description = "User registration and management")
 public class UserController {
     private final UserService userService;
 
